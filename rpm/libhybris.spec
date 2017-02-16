@@ -236,6 +236,26 @@ Requires: %{name}-libvibrator = %{version}-%{release}
 %description tests
 %{summary}.
 
+%package detritus
+Summary: Straggler files for %{name}
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+Requires: %{name} = %{version}-%{release}
+
+%description detritus
+%{summary}.
+
+%package detritus-devel
+Summary: Straggler development library for %{name}
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-detritus = %{version}-%{release}
+
+%description detritus-devel
+%{summary}.
+
+
 %prep
 %setup -q -n %{name}-%{version}/%{name}
 
@@ -293,6 +313,9 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 
 %post libvibrator -p /sbin/ldconfig
 %postun libvibrator -p /sbin/ldconfig
+
+%post detritus -p /sbin/ldconfig
+%postun detritus -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
@@ -457,3 +480,40 @@ rm %{buildroot}/%{_libdir}/*.la %{buildroot}/%{_libdir}/libhybris/*.la
 %files tests
 %defattr(-,root,root,-)
 %{_bindir}/test_*
+
+# this is still needed by tests, needs rework
+%files detritus
+%defattr(-,root,root,-)
+%{_libdir}/libcamera.so.*
+%{_libdir}/libis.so.*
+%{_libdir}/libmedia.so.*
+%{_libdir}/libsf.so.*
+%{_libdir}/libui.so.*
+%{_libdir}/libwifi.so.*
+
+%files detritus-devel
+%defattr(-,root,root,-)
+%{_includedir}/hybris/common/hooks.h
+%{_includedir}/hybris/media/media_buffer_layer.h
+%{_includedir}/hybris/media/media_codec_layer.h
+%{_includedir}/hybris/media/media_codec_list.h
+%{_includedir}/hybris/media/media_codec_source_layer.h
+%{_includedir}/hybris/media/media_compatibility_layer.h
+%{_includedir}/hybris/media/media_format_layer.h
+%{_includedir}/hybris/media/media_message_layer.h
+%{_includedir}/hybris/media/media_meta_data_layer.h
+%{_includedir}/hybris/media/media_recorder_layer.h
+%{_includedir}/hybris/media/recorder_compatibility_layer.h
+%{_includedir}/hybris/media/surface_texture_client_hybris.h
+%{_libdir}/libcamera.so
+%{_libdir}/libis.so
+%{_libdir}/libmedia.so
+%{_libdir}/libsf.so
+%{_libdir}/libui.so
+%{_libdir}/libwifi.so
+%{_libdir}/pkgconfig/libcamera.pc
+%{_libdir}/pkgconfig/libis.pc
+%{_libdir}/pkgconfig/libmedia.pc
+%{_libdir}/pkgconfig/libsf.pc
+%{_libdir}/pkgconfig/libwifi.pc
+
