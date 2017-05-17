@@ -11,6 +11,7 @@ bin_PROGRAMS = \
 	test_media \
 	test_recorder \
 	test_gps \
+	test_sf \
 	test_wifi
 
 if HAS_ANDROID_4_2_0
