@@ -14,7 +14,7 @@ AM_CPPFLAGS = \
 	-Wstrict-overflow=5
 
 AM_CXXFLAGS = \
-	-std=gnu++11 \
+	-std=c++0x \
 	-Wold-style-cast
 
 mm_la_SOURCES = \
@@ -42,7 +42,6 @@ if WANT_INITIALIZE_BIONIC
 mm_la_CPPFLAGS += -DWANT_INITIALIZE_BIONIC
 endif
 mm_la_LDFLAGS = \
-	-lsupc++ \
 	-module \
 	-avoid-version
 
